@@ -8,6 +8,4 @@ if DisplayTag && DisplayTagGlobal
     waitforbuttonpress
 end
 
-
-
 end

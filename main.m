@@ -4,7 +4,7 @@ function main
 % version of the work described in the papers [1,2] below and does not include
 % many of the functionalities described within it. As a result this code should
 % not be used to replicate the results in the paper. However, feel free to use, 
-% modify and extend this code
+% modify and extend this code for your carried object detection needs.
 % 
 % Author: Aryana Tavanai
 % Email: fy06at@leeds.ac.uk
@@ -78,6 +78,7 @@ dres = [];
 dresCount = 1;
 
 
+%% Change images here (make sure to change the motion mask too)
 img = imread('Data/eg1.png');foreground_mask = imread('MotionMask/eg1.png');
 sz_im = size(img);
 
@@ -85,7 +86,7 @@ sz_im = size(img);
 if DisplayTag && DisplayTagGlobal
     MonitorPos = get(0,'MonitorPositions');
     figure('Position',MonitorPos(1,:));
-    subplot(1,2,1);
+    subaxis(1,2,1, 'Spacing', 0.03, 'Padding', 0.01, 'Margin', 0.03);
     imshow(img)
     title('\fontsize{16} Create a bounding box to find the object in')
 end
@@ -110,10 +111,10 @@ person_filter_mask = zeros(size(img,1),size(img,2));  % Remove areas from edge d
 [edgelist,im_crop_size,im_crop,im_crop_obj_prior] = GetLinesFromEdges(img, rect,foreground_mask,carried_object_mask,person_filter_mask);
 
 %%%%%%%%%%%%%%%%%%
-DisplayMessageAndWaitForButtonPress('Edge Detection (mouse click to continue)')
+DisplayMessageAndWaitForButtonPress('Edge Detection (click to continue)')
 %%%%%%%%%%%%%%%%%%
 
-if isempty(edgelist) return; end
+if isempty(edgelist); title('\fontsize{16} No edges Found - Program Finished!!'); return; end
 Nedge = length(edgelist);
 if DisplayTag && DisplayTagGlobal;hold on;end
 
@@ -126,14 +127,14 @@ minx = 1; miny = 1;maxx = im_crop_size(2); maxy = im_crop_size(1);
 for I = 1:Nedge; minx = min(min(edgelist{I}(:,2)),minx); miny = min(min(edgelist{I}(:,1)),miny); maxx = max(max(edgelist{I}(:,2)),maxx); maxy = max(max(edgelist{I}(:,1)),maxy); end
 
 %%%%%%%%%%%%%%%%%%
-DisplayMessageAndWaitForButtonPress('Accepted Edge Lines (Red) (mouse click to continue)')
+DisplayMessageAndWaitForButtonPress('Accepted Edge Lines (Red) (click to continue)')
 %%%%%%%%%%%%%%%%%%
 
 %% Get all pairs of edges that satisfy a property
 [colEdges,P1,P2]  = GetPairOfLinesWithDistanceAngleProperty(AllLines,human_height);
 
 %%%%%%%%%%%%%%%%%%
-DisplayMessageAndWaitForButtonPress('Candidate Edge Lines Chains (Yellow) (mouse click to continue)')
+DisplayMessageAndWaitForButtonPress('Candidate Edge Lines Chains (Yellow) (click to continue)')
 if  DisplayTag && DisplayTagGlobal
     title('\fontsize{16} Performing level-wise mining, please wait ...')
     pause(.1);
@@ -149,11 +150,11 @@ all_candidate_polygons = [];
 [all_candidate_polygons] = ComputeEdgeChainProbability(multi_colEdges, candidate_polygon,P1,P2,im_crop_obj_prior);
 
 %%%%%%%%%%%%%%%%%%
-DisplayMessageAndWaitForButtonPress('Final Detection Chains (mouse click to continue)')
+DisplayMessageAndWaitForButtonPress('Final Detection Chains (click to continue)')
 %%%%%%%%%%%%%%%%%%
 
 if  DisplayTag && DisplayTagGlobal
-    subplot(1,2,2);
+    subaxis(1,2,2, 'Spacing', 0.03, 'Padding', 0.01, 'Margin', 0.03);
     imshow(im_crop)
 end
 
