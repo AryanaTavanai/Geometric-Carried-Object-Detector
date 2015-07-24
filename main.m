@@ -47,7 +47,6 @@ function main
 % (including demonstrations which rely on it's use).
 
 
-
 addpath('Code/')
 addpath(genpath('3rdParty_Toolbox/'))
 
