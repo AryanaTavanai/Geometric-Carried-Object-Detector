@@ -1,14 +1,18 @@
 ################### Description ################### 
-This program is a very basic version of the carried object detector descibed in
-the following paper:
+This program is a very basic version of the carried object detector
+descibed and used in the following papers:
 
-Tavanai, Sridhar, Gu, Cohn, Hogg (2013). “Carried object detection and 
+[1] Tavanai, Sridhar, Chinellato, Cohn, and Hogg. "Joint Tracking and 
+Event Analysis for Carried Object Detection".
+British Machine Vision Conference (BMVC) 2015.
+
+[2] Tavanai, Sridhar, Gu, Cohn, Hogg . “Carried object detection and 
 tracking using geometric shape models and spatio-temporal consistency,”
-International Conference on Computer Vision Systems (ICVS).
+International Conference on Computer Vision Systems (ICVS) 2013.
 
 It does not not reproduce the results in the paper. As most of the functionalities
 in the paper have been removed, the code will produce many more false positives and
-less True positives. If this code is used in your work please cite the above paper.
+less True positives. If this code is used in your work please cite the above papers.
 
 
 ################### Running the code ################### 

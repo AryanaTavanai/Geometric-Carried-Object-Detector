@@ -21,7 +21,7 @@ function main
 %
 % [2] Tavanai, Sridhar, Gu, Cohn, Hogg . “Carried object detection and 
 % tracking using geometric shape models and spatio-temporal consistency,”
-% International Conference on Computer Vision Systems (ICVS). (2013)
+% International Conference on Computer Vision Systems (ICVS) 2013.
 %
 %
 % COPYRIGHT
