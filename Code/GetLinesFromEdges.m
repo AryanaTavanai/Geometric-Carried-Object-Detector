@@ -41,7 +41,18 @@ se = strel('disk',10);im_crop_motion = imdilate(im_crop_motion,se);
 % im_crop_Enhance = EdgeEnhance.image;
 im_crop_Enhance = imcrop(Img,rect);
 
-edgeim = edge(im_crop_Enhance,'canny',.1);
+
+%% Perform canny edge detection or Quickshift
+
+if strcmp(param.EdgeDetect,'Canny')
+    edgeim = edge(im_crop_Enhance,'canny',.1);
+elseif strcmp(param.EdgeDetect,'QuickShift')
+    if DisplayTag && DisplayTagGlobal; title('\fontsize{16} Applying QuickShift');pause(.01);end
+    [Iseg,Iedge] = ApplyQuickShiftForEdges(im_crop_Enhance);
+    edgeim = Iedge>param.QuickShiftThresh;
+    
+end
+
 
 %% Remove edge regions
 edgeim(im_crop_motion==0)=0;

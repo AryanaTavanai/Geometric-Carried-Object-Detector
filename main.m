@@ -1,10 +1,11 @@
 function main
 
-% This program is used to obtain carried object detections. It is a basic 
-% version of the work described in the papers [1,2] below and does not include
-% many of the functionalities described within it. As a result this code should
-% not be used to replicate the results in the paper. However, feel free to use, 
-% modify and extend this code for your carried object detection needs.
+% This program is used to obtain highly convex carried object detections.
+% It is a basic version of the work described in the papers [1,2] below and
+% does not include many of the functionalities described within it.
+% As a result this code should not be used to replicate the results in the
+% paper. However, feel free to use, modify and extend this code for your 
+% carried object detection needs.
 % 
 % Author: Aryana Tavanai
 % Email: fy06at@leeds.ac.uk
@@ -13,7 +14,7 @@ function main
 % Uploaded Version: July 2015
 %
 %
-% If you use this code in your work, please cite the following paper:
+% If you use this code in your work, please cite the following papers:
 %
 % [1] Tavanai, Sridhar, Chinellato, Cohn, and Hogg. "Joint Tracking and 
 % Event Analysis for Carried Object Detection".
@@ -50,6 +51,11 @@ function main
 addpath('Code/')
 addpath(genpath('3rdParty_Toolbox/'))
 
+% If you want to replace canny edge detector with quick shift algorithm download vlfeat toolbox from:
+% https://github.com/vlfeat/vlfeat and add its path below. Make sure to use the param.EdgeDetect = 'QuickShift'
+% option in "LoadParameters".
+% addpath(genpath('<< vlfeat-0.9.17 Directory>>'))
+
 global sz_im;
 global rectcolor;
 global DisplayTagGlobal;
@@ -78,7 +84,9 @@ dresCount = 1;
 
 
 %% Change images here (make sure to change the motion mask too)
-img = imread('Data/eg1.png');foreground_mask = imread('MotionMask/eg1.png');
+img = imread('Data/eg1.png');
+foreground_mask = imread('MotionMask/eg1.png');
+
 sz_im = size(img);
 
 
@@ -179,7 +187,7 @@ if ~isempty(all_candidate_polygons)
             
             %%%%%%%%%%%%%%%%%%
             d(1) = plot([new_x new_x(1)],[new_y new_y(1)],'g','linewidth',3);
-            title('Carried Object Detection Chains')
+            title([ '\fontsize{16} ' num2str(length(all_candidate_polygons)) ' Carried Object Detection Chains Found'])
             pause(1);
             delete(d);
             %%%%%%%%%%%%%%%%%%

@@ -1,5 +1,15 @@
 global param
 
+
+%% Choose type of edge detector
+param.EdgeDetect = 'Canny';
+
+% param.EdgeDetect = 'QuickShift'; % You will need  do download the vlfeat toolbox:
+% param.kernelsize=10;             % https://github.com/vlfeat/vlfeat to use quick  make sure
+% param.maxdist=100;               % to addpath the vlfeat directory in the main function.
+                                   % Parameters below may need tweaking.
+                                
+                                 
 %% Important Parameters that may need changing based on dataset.
 param.LenShortThresh = 5; % Threshold to filter very short edges (FilterLineSegments function)
 
@@ -23,6 +33,8 @@ param.CircumferenceRatioThresh= 0.55; % The CircumferenceRatio ratio is obtained
                                       % filters chains that are not closed. The closer this value is to 1, chains must
                                       % more closed in order to be acceted as detections. (ComputeEdgeChainProbability function)
 
+param.QuickShiftThresh = 20; % Threshhold used to remove weak edges provided by the quick shift algorithm
+                                      
 %% Parameters that don't heavily change the results.
 param.human_height = 400; % Height of the person used to threshold  very short edges.(FilterLineSegments function)
 
